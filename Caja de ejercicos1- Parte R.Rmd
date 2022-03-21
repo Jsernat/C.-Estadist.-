@@ -1,0 +1,73 @@
+---
+title: "Caja de problemas 1 - Parte de R"
+author: "Julián Estivent Serna Triana"
+date: "12/3/2022"
+output: html_document
+---
+#Caja de problemas - Ejercicio y problema 1.1
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+
+```
+
+##Llevando a código funcional
+```{r}
+x = 8
+
+y1 = log(x)
+y1
+
+y2 = log(sqrt(x))
+y2
+
+y3 = log(sqrt(x^2 - 1))
+y3
+
+y4 = (log(sqrt(x-1)))/(x^2 + 1)
+y4
+
+y5 = (x-1)/log(x)
+y5
+
+y6 = (1/x) + sqrt(x - 1)
+y6
+
+y7 = (1/x) + sqrt(x-1) - (1/log(1/(x+1)))
+y7
+
+y8 = 2/x^2+1
+y8
+
+n <- 4
+i <- (1:n)
+y9 = (1/n)* sum(i)
+y9
+
+mu <- 5
+n <- 4
+i <- (1:n)
+y10 = (1/n-1)*sum(((i)- mu))^2
+
+y11 = sqrt(y10)/ y9
+```
+##Problema 1.1 
+$$\small Construyendo\ una\ función\ que\ retorna\ la\ varianza $$
+```{r}
+set.seed(1001280374)
+datos1 = rnorm(n = 2:51, mean = 3, sd = 0.3)
+datos1
+n <- 2:51
+mu <-  3
+
+
+var = ((datos1[1]- mu)^2 / n) + ((datos1[2]- mu)^2 / n) + ((datos1[3]- mu)^2 / n) + ((datos1[4]- mu)^2 / n) + ((datos1[5]- mu)^2 / n) + ((datos1[6]- mu)^2 / n) + ((datos1[7]- mu)^2 / n) + ((datos1[8]- mu)^2 / n) + ((datos1[9]- mu)^2 / n) + ((datos1[10]- mu)^2 / n) + ((datos1[11]- mu)^2 / n) + ((datos1[12]- mu)^2 / n) + ((datos1[13]- mu)^2 / n) + ((datos1[14]- mu)^2 / n) + ((datos1[15]- mu)^2 / n) + ((datos1[16]- mu)^2 / n) + ((datos1[17]- mu)^2 / n) + ((datos1[18]- mu)^2 / n) + ((datos1[19]- mu)^2 / n) + ((datos1[20]- mu)^2 / n) + ((datos1[21]- mu)^2 / n) + ((datos1[22]- mu)^2 / n) + ((datos1[23]- mu)^2 / n) + ((datos1[24]- mu)^2 / n) + ((datos1[25]- mu)^2 / n) + ((datos1[26]- mu)^2 / n) + ((datos1[27]- mu)^2 / n) + ((datos1[28]- mu)^2 / n) + ((datos1[29]- mu)^2 / n) + ((datos1[30]- mu)^2 / n) + ((datos1[31]- mu)^2 / n) + ((datos1[32]- mu)^2 / n) + ((datos1[33]- mu)^2 / n) + ((datos1[34]- mu)^2 / n) + ((datos1[35]- mu)^2 / n) + ((datos1[36]- mu)^2 / n) + ((datos1[37]- mu)^2 / n) + ((datos1[38]- mu)^2 / n) + ((datos1[39]- mu)^2 / n) + ((datos1[40]- mu)^2 / n) + ((datos1[41]- mu)^2 / n) + ((datos1[42]- mu)^2 / n) + ((datos1[43]- mu)^2 / n) + ((datos1[44]- mu)^2 / n) + ((datos1[45]- mu)^2 / n) + ((datos1[46]- mu)^2 / n) + ((datos1[47]- mu)^2 / n) + ((datos1[48]- mu)^2 / n) + ((datos1[49]- mu)^2 / n) + ((datos1[50]- mu)^2 / n) 
+var
+
+plot(x = n, y = var, main = "varianza en función del número de muestra", xlab = "n", ylab = "varianza", pch = 20, type = "o" )
+
+
+
+
+```
+
