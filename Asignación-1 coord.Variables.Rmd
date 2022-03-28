@@ -1,0 +1,217 @@
+---
+title: "Asignación mapeo de variables"
+author: "Julián Estivent Serna Triana"
+date: "28/3/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+sessionInfo()
+
+library(dplyr) # Librería dplyr -> MUY IMPORTANTE
+library(readxl)
+library(ggplot2)
+library(Hmisc) # Utilización función CUT2
+```
+
+## Estadísticas descriptivas
+## Asignación 
+
+$$Mapear\ (con\ coordenadas)\ el\ resto\ de\ variables,\ no\ necesariamente\ con\ 4\ grupos$$
+
+```{r}
+XPABLO <- read_excel("C:/Users/admin/Downloads/XPABLO (2).xlsx")
+XPABLO <- XPABLO[-c(16,17,18,19)]
+View(XPABLO)
+```
+
+```{r}
+CategoriaCa <- cut(x = XPABLO$Ca, breaks = 4) 
+unique(CategoriaCa)
+
+gr1<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaCa)) + 
+  geom_point()
+
+gr1+
+  ggtitle("Coordenadas de calcio cuatro grupos")
+
+CategoriaCa1 <- cut(x = XPABLO$Ca, breaks = 2) 
+unique(CategoriaCa1)
+
+gr1<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaCa1)) + 
+  geom_point()
+
+gr1+
+  ggtitle("Coordenadas de calcio dos grupos")
+
+```
+
+```{r}
+CategoriaMg<- cut(x = XPABLO$Mg, breaks = 4) 
+unique(CategoriaMg)
+
+gr2<-ggplot(XPABLO, aes(x = Long, y = Lat, color =CategoriaMg)) + 
+  geom_point()
+
+gr2+
+  ggtitle("Coordenadas de Magnesio cuatro grupos")
+
+CategoriaMg<- cut(x = XPABLO$Mg, breaks = 2) 
+unique(CategoriaMg)
+
+gr2<-ggplot(XPABLO, aes(x = Long, y = Lat, color =CategoriaMg)) + 
+  geom_point()
+
+gr2+
+  ggtitle("Coordenadas de Magnesio dos grupos")
+```
+
+```{r}
+CategoriaK <- cut(x = XPABLO$K, breaks = 4) 
+unique(CategoriaK)
+
+gr3<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaK)) + 
+  geom_point()
+
+gr3+
+  ggtitle("Coordenadas de Potasio cuatro grupos")
+
+CategoriaK <- cut(x = XPABLO$K, breaks = 2) 
+unique(CategoriaK)
+
+gr3<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaK)) + 
+  geom_point()
+
+gr3+
+  ggtitle("Coordenadas de Potasio dos grupos")
+```
+
+```{r}
+CategoriaNa<- cut(x = XPABLO$Na, breaks = 4)
+unique(CategoriaNa)
+
+gr4<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaNa)) + 
+  geom_point()
+
+gr4+
+  ggtitle("Coordenadas de Sodio cuatro grupos")
+
+CategoriaNa<- cut(x = XPABLO$Na, breaks = 2)
+unique(CategoriaNa)
+
+gr4<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaNa)) + 
+  geom_point()
+
+gr4+
+  ggtitle("Coordenadas de Sodio dos grupos")
+```
+
+```{r}
+CategoriaFe <- cut(x = XPABLO$Fe, breaks = 4) 
+unique(CategoriaFe)
+
+gr5<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaFe)) + 
+  geom_point()
+
+gr5+
+  ggtitle("Coordenadas de Hierro cuatro grupos")
+
+CategoriaFe <- cut(x = XPABLO$Fe, breaks = 2) 
+unique(CategoriaFe)
+
+gr5<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaFe)) + 
+  geom_point()
+
+gr5+
+  ggtitle("Coordenadas de Hierro dos grupos")
+```
+
+```{r}
+CategoriaCu <- cut(x = XPABLO$Cu, breaks = 4) 
+unique(CategoriaCu)
+
+gr6<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaCu) ) + 
+  geom_point()
+
+gr6+
+  ggtitle("Coordenadas de Cobre cuatro grupos")
+
+CategoriaCu <- cut(x = XPABLO$Cu, breaks = 2) 
+unique(CategoriaCu)
+
+gr6<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaCu) ) + 
+  geom_point()
+
+gr6+
+  ggtitle("Coordenadas de Cobre dos grupos")
+
+
+```
+
+```{r}
+CategoriaZn <- cut(x = XPABLO$Zn, breaks = 4) 
+unique(CategoriaZn)
+
+gr7<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaZn) ) + 
+  geom_point()
+
+gr7+
+  ggtitle("Coordenadas de Zinc cuatro grupos")
+
+CategoriaZn <- cut(x = XPABLO$Zn, breaks = 2) 
+unique(CategoriaZn)
+
+gr7<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaZn) ) + 
+  geom_point()
+
+gr7+
+  ggtitle("Coordenadas de Zinc dos grupos")
+```
+
+```{r}
+CategoriaMO <- cut(x = XPABLO$MO, breaks = 4) 
+unique(CategoriaMO)
+
+gr8<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaMO) ) +
+  geom_point()
+
+gr8+
+  ggtitle("Coordenadas de Materia orgánica cuatro grupos")
+
+CategoriaMO <- cut(x = XPABLO$MO, breaks = 2) 
+unique(CategoriaMO)
+
+gr8<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaMO) ) +
+  geom_point()
+
+gr8+
+  ggtitle("Coordenadas de Materia orgánica dos grupos")
+```
+
+```{r}
+CategoriaCE <- cut(x = XPABLO$CE, breaks = 4) 
+unique(CategoriaCE)
+
+gr8<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaCE) ) +
+  geom_point()
+
+gr8+
+  ggtitle("Coordenadas de conductividad eléctrica cuatro grupos")
+
+CategoriaCE <- cut(x = XPABLO$CE, breaks = 2) 
+unique(CategoriaCE)
+
+gr8<-ggplot(XPABLO, aes(x = Long, y = Lat, color = CategoriaCE) ) +
+  geom_point()
+
+gr8+
+  ggtitle("Coordenadas de conductividad eléctrica dos grupos")
+```
+
+
+
+
+
