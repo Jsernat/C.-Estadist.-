@@ -1,0 +1,111 @@
+---
+title: "Clase presencial 1"
+author: "Julián Serna"
+date: "9/5/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ape)
+library(dplyr)
+library(Hmisc)
+```
+$$Respuesta: Cannabinoide (UDC) $$
+$$1Factor(3niveles): Genotipo (gen1, gen2, gen3)$$
+$$H_0: \mu_{gen_1} = \mu_{gen2} = \mu_{gen3}$$
+$$ H_a: H_0 \ es \ falsa: Hipotésis \ de \ investigación \\ Diseño:Factorial\  simple\  en\  arreglo\  completamente\  al\  azar$$
+```{r}
+set.seed(123)
+udc = c(rnorm(n = 24, mean = 5, sd = 0.20),
+        rnorm(n = 24, mean = 5.6, sd = 0.22),
+        rnorm(n = 24, mean = 5.8, sd = 0.18))
+genotipo = gl(n = 3, k = 24, length = 72, c("gen1", "gen2", "gen3"))
+
+df1 = data.frame(genotipo, udc)
+head(df1)
+
+```
+```{r}
+xy = expand.grid(x = 1:8, y = 1:9)
+aleat = sample(1:72, 72, FALSE)
+df1$cord_x = xy$x[aleat]
+df1$cord_y = xy$y[aleat]
+
+ggplot(df1)+
+  aes(cord_x, cord_y, fill = udc)+
+  geom_tile(color = "black", width=0.8, height=0.8)+
+  geom_text(aes(label = genotipo), color = "white", size = 5)
+```
+##Estadítica descriptiva
+```{r}
+ggplot(df1)+
+  aes(genotipo, udc, fill = genotipo)+
+  geom_boxplot()+
+  geom_hline(yintercept = 5.2)
+
+```
+```{r}
+library(dplyr)
+df1 %>% 
+  group_by(genotipo) %>% 
+  summarise(media = mean(udc),
+            desv = sd(udc),
+            cv = 100*desv/media)
+
+```
+
+## Estadística inferencial
+
+$$Modelo: y_{ij} = \mu + \tau_i + \epsilon_{ij}\\ i =1,2,3; \ ;j=1,2, \dots,24$$
+$$ y_{ij} = cannabinoide \\ \epsilon_{ij} = parte\ no\ genotipica(invernadero, ambiente, error\ experimental) = Residuales $$
+**Técnica estadistica**: Análisis de varianza
+$$ Sólo\ se\ puede\ tomar\ p\ valor\ si\ el\ experimento\ se\ repite\ muchas\ veces$$
+```{r}
+mod1 = aov(udc ~ genotipo, data = df1)
+s_mod1 = summary(mod1)
+p_valor= s_mod1[[1]][1,5]
+ifelse(p_valor<0.05, "Rechazo H0", "No rechazo H0")
+```
+
+```{r}
+#Prueba de tukey -  comparación de medias
+TukeyHSD(mod1, "genotipo")
+
+#Conclusión: Estadisticamente todos los genotipos son diferentes respecto al contenido de canabinoides
+```
+
+```{r}
+# Revisando suspuestos del modelo
+
+# Normalidad de residuales
+shapiro.test(mod1$residuals)
+
+# Igualadad de varianzas
+bartlett.test(mod1$residuals, df1$genotipo)
+
+```
+
+## Matriz de distacia 
+
+```{r}
+dist_matrix <- as.matrix(dist(cbind(df1$cord_x,df1$cord_y)))#;dist_matrix
+which.max(dist_matrix) # Es la posición de la máxima
+max(dist_matrix) # Mayor valor 
+min(dist_matrix) # Menor valor
+dim(dist_matrix)
+```
+## Inversa de la distancia
+```{r}
+dist_matrix_inv <- 1 / dist_matrix # Element wise
+diag(dist_matrix_inv) <- 0
+which.max(dist_matrix_inv) # Es la posición de la máxima
+max(dist_matrix_inv) # Mayor valor 
+min(dist_matrix_inv) # Menor valor
+```
+
+```{r}
+#Dependencia espacial (debe haber independencia)
+Moran.I(mod1$residuals, dist_matrix_inv)
+```
